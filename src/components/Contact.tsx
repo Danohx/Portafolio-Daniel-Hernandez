@@ -13,7 +13,7 @@ const Contact: React.FC = () => {
         <h2>¿Tienes un proyecto en mente?</h2>
         <p>
           Estoy disponible para colaboraciones o nuevas oportunidades laborales.
-          Si quieres hablar de código, soluciones web o simplemente saludar, ¡mándame un correo!
+          Si quieres hablar de código, soluciones web o simplemente saludar, ¡mándame un correo o envíame un mensaje!
         </p>
 
         <div className="contact-actions">
