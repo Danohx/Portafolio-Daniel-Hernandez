@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaReact, FaNodeJs, FaJava, FaHtml5, FaCss3Alt, FaDatabase } from 'react-icons/fa'
+import { FaReact, FaNodeJs, FaJava, FaHtml5} from 'react-icons/fa'
 import { SiTypescript, SiMysql } from 'react-icons/si' 
 
 const Skills: React.FC = () => {

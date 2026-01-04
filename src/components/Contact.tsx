@@ -8,7 +8,7 @@ const Contact: React.FC = () => {
     subject: '',
     message: ''
   })
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [_status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
