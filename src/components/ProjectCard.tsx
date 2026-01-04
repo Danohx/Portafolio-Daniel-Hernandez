@@ -11,15 +11,23 @@ const ProjectCard: React.FC<Props> = ({ project, onClick }) => {
 
   return (
     <div className="project-card">
-      <div className="card-media-container" onClick={onClick}>
+      <div 
+        className="card-media-container" 
+        onClick={onClick}
+        /* Mejoras de accesibilidad para el div clickeable */
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClick() }}
+        aria-label={`Ver detalles del proyecto ${project.title}`}
+      >
         {coverImage ? (
           <img 
             src={coverImage} 
-            alt={project.title} 
+            alt="" 
             className="card-media" 
           />
         ) : (
-          <div style={{ width: '100%', height: '100%', background: '#222', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666' }}>
+          <div style={{ width: '100%', height: '100%', background: '#222', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb' }}>
             Sin imagen
           </div>
         )}

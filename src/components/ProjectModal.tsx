@@ -37,25 +37,59 @@ const ProjectModal: React.FC<Props> = ({ project, onClose }) => {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close-btn" onClick={onClose}><FaTimes /></button>
+      <div 
+        className="modal-content" 
+        onClick={(e) => e.stopPropagation()}
+        role="dialog" // Semántica para modales
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        {/* Solución 1.1.1: Etiqueta descriptiva para botón de solo icono */}
+        <button 
+          className="modal-close-btn" 
+          onClick={onClose}
+          aria-label="Cerrar detalles del proyecto"
+        >
+          <FaTimes aria-hidden="true" />
+        </button>
 
         <div className="modal-media">
           {project.video ? (
-            <video ref={videoRef} src={project.video} autoPlay controls className="modal-video" />
+            <video 
+              ref={videoRef} 
+              src={project.video} 
+              autoPlay 
+              controls 
+              className="modal-video" 
+              title={`Video demostrativo de ${project.title}`} // Título para accesibilidad
+            />
           ) : hasGallery ? (
             <div className="gallery-container">
               <img 
                 src={project.images![currentImgIndex]} 
-                alt={project.title} 
+                alt={`Captura de pantalla ${currentImgIndex + 1} de ${project.title}`} 
                 className={'modal-image'}
                 onClick={() => setZoomImage(project.images![currentImgIndex])}
                 />
               
               {project.images!.length > 1 && (
                 <>
-                  <button className="gallery-btn prev" onClick={prevImage}><FaChevronLeft /></button>
-                  <button className="gallery-btn next" onClick={nextImage}><FaChevronRight /></button>
+                  {/* Solución 1.1.1: Etiquetas para navegación */}
+                  <button 
+                    className="gallery-btn prev" 
+                    onClick={prevImage}
+                    aria-label="Ver imagen anterior"
+                  >
+                    <FaChevronLeft aria-hidden="true" />
+                  </button>
+                  
+                  <button 
+                    className="gallery-btn next" 
+                    onClick={nextImage}
+                    aria-label="Ver siguiente imagen"
+                  >
+                    <FaChevronRight aria-hidden="true" />
+                  </button>
                   
                   <div className="gallery-dots">
                     {project.images!.map((_, idx) => (
@@ -67,7 +101,7 @@ const ProjectModal: React.FC<Props> = ({ project, onClose }) => {
             </div>
           ) : (
             <img src={project.image} 
-              alt={project.title} 
+              alt={`Vista previa de ${project.title}`} 
               className={'modal-image'}
               onClick={() => project.image && setZoomImage(project.image)}
             />
@@ -75,15 +109,23 @@ const ProjectModal: React.FC<Props> = ({ project, onClose }) => {
         </div>
 
         <div className="modal-body">
-           <h2>{project.title}</h2>
+           <h2 id="modal-title">{project.title}</h2>
            <div className="modal-tags">
             {project.tags?.map(tag => <span key={tag} className="tag">{tag}</span>)}
            </div>
            <p className="modal-description">{project.description}</p>
+           
            <div className="modal-footer">
              {project.link && (
-               <a href={project.link} target="_blank" rel="noreferrer" className="btn-primary">
-                 <FaExternalLinkAlt style={{ marginRight: '8px' }}/> Visitar Sitio
+               /* Solución 2.4.4: Propósito del enlace claro en contexto */
+               <a 
+                 href={project.link} 
+                 target="_blank" 
+                 rel="noreferrer" 
+                 className="btn-primary"
+                 aria-label={`Visitar sitio web de ${project.title} (se abre en una nueva pestaña)`}
+               >
+                 <FaExternalLinkAlt style={{ marginRight: '8px' }} aria-hidden="true"/> Visitar Sitio
                </a>
              )}
            </div>
@@ -102,11 +144,13 @@ const ProjectModal: React.FC<Props> = ({ project, onClose }) => {
             className="image-zoom-wrapper"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Solución 1.1.1: Botón cerrar zoom accesible */}
             <button 
               className="zoom-close-btn"
               onClick={() => setZoomImage(null)}
+              aria-label="Cerrar vista ampliada"
             >
-              <FaTimes />
+              <FaTimes aria-hidden="true" />
             </button> 
             <img
               src={zoomImage}
